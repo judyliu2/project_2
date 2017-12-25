@@ -1,2 +1,2 @@
-#Battleship
-##By: Pacy Yan and Judy Liu
+# Battleship
+## By: Pacy Yan and Judy Liu
