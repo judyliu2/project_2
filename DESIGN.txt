@@ -1,6 +1,6 @@
-#Battle Ship
+Battle Ship
 
-##Names: Judy Liu, Pacy Yan
+Names: Judy Liu, Pacy Yan
 
 
 
@@ -8,14 +8,14 @@
     A statement of the problem you are solving and/or a high level description of the project.
 Creating the classic Battleship board game in the terminal 
 
-##Rules: 
+Rules: 
 
     - The two players cannot see each other’s boards
     - You can place one shot at once
     - To defeat a ship, you must hit all the spots the ship is on
     - You may not shoot a spot you have already shot before
     
-##Game Pieces:
+Game Pieces:
 
     - 2 11x9 boards (ABCs x 123s)
     - Carrier - 5 holes
@@ -24,13 +24,13 @@ Creating the classic Battleship board game in the terminal
     - Submarine - 3 holes
     - Destroyer - 2 holes
     
-##Game Process:
+Game Process:
 
     - Setup
     - Player is presented with a grid and prompted to place each of the pieces on the board
     - Prints the name of current piece and identifies how many spots it needs
     
-##Input:
+Input:
 
     - A series of coordinates on the grid to place the first piece
     - If overlap, return error
@@ -40,11 +40,12 @@ Creating the classic Battleship board game in the terminal
     - If not enough spots, return error
     - Error returns it back to that piece 
     
-##Display:
+Display:
 
     - The player is shown two boards, one is their own with the ships on it
     - The other is the other side and it appears blank
-###Play:
+    
+Play:
 
     - First Round:
         - Input:
