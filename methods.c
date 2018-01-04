@@ -4,7 +4,10 @@ int server_handshake(int * to_client);
 
 int client_handshake(int * to_server);
 
-void setup(); //creates boards for user1 and computer/user2 after client/server are connected
+ //creates boards for user1 and computer/user2 after client/server are connected
+void setup(){
+  char board[10][10];
+}
 
 
 char * user_input(); 

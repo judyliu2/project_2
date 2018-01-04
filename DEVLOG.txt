@@ -1,0 +1,9 @@
+12/31	
+	Judy - Created a skeleton based on the design document
+
+1/3
+	Judy - Added necessary files for client/server 
+
+1/4
+	
+	Judy - Made sure client/server part runs
