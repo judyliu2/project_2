@@ -11,8 +11,9 @@ int main() {
   if (strcmp(start,"1")){
   
     from_server = client_handshake( &to_server );
-    
+    setup();
     while (1) {
+      
       printf("Enter coodrinates: ");
       fgets(buffer, sizeof(buffer), stdin);
       *strchr(buffer, '\n') = 0;

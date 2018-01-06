@@ -6,7 +6,33 @@ int client_handshake(int * to_server);
 
  //creates boards for user1 and computer/user2 after client/server are connected
 void setup(){
-  char board[10][10];
+  int ** grid = NULL;
+  int rows = 0;
+  int columns = 0;
+  int row_letter = 65;
+  grid = (int**) malloc(10* sizeof(int*));
+  for (rows = 0; rows < 10; rows++){
+    grid[rows] = (int*) malloc(10* sizeof(int)); //columns
+  }
+  
+  
+  for (rows = 0; rows<10 ; rows++){
+    for (columns = 0; columns < 10; columns++){
+      grid[rows][columns] = 0;
+    }
+  }
+ 
+  printf("  1 2 3 4 5 6 7 8 9 10\n");
+  for (rows = 0; rows<10 ; rows++){
+    printf("%c ", row_letter);
+    row_letter++;
+    for (columns = 0; columns < 10; columns++){
+      printf("%d ", grid[rows][columns]);
+    
+    }
+    printf("\n");
+  }
+  
 }
 
 
@@ -55,4 +81,11 @@ void endgame();
 /*
   - If all the ships on either of the boards are all down, the game ends
   - Prompts restart or quit
+*/
+
+/*
+int main(){
+  setup();
+  return 0;
+}
 */
