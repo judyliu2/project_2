@@ -5,7 +5,7 @@ int server_handshake(int * to_client);
 int client_handshake(int * to_server);
 
  //creates boards for user1 and computer/user2 after client/server are connected
-void setup(){
+int ** setup(){
   int ** grid = NULL;
   int rows = 0;
   int columns = 0;
@@ -32,11 +32,22 @@ void setup(){
     }
     printf("\n");
   }
-  
+  return grid;
 }
 
+char ** parse_args(char * s1){
+  char ** ret = (char **) calloc (800, sizeof(char*));
+  int i = 0;    
+  
+  while (s1 && i < 799){
+    char * string = strsep (&s1," ");
+    ret[i] = string;
+    i++;
+  }
+  ret[i] = NULL;
+  return ret;
+}
 
-char * user_input(); 
 /*
   - A series of coordinates on the grid to place the first piece
   - If overlap, return error
@@ -46,6 +57,26 @@ char * user_input();
   - If not enough spots, return error
 - Error returns it back to that piece
     */
+char * user_input( int ** board, int attk_board){
+  char buffer[BUFFER_SIZE];
+  int ** coordinates;
+  int letter = 0;
+  fgets(buffer, sizeof(buffer), stdin);
+  *strchr(buffer, '\n') = 0;
+  parse_args(buffer);
+  letter = (int)coordinates[0] - 65;
+  if(!attk_board){
+    //checks if coordinate is valid, if not try again
+   
+    //then checks if coordinate has x, if so try again
+    //if not replace 'o' with 'x'
+  }
+  else{
+    //check for validity
+    //check for 'o'
+  }
+  
+}
 
 void display();
 /*
@@ -83,9 +114,9 @@ void endgame();
   - Prompts restart or quit
 */
 
-/*
+
 int main(){
-  setup();
+  printf("%p",setup());
   return 0;
 }
-*/
+

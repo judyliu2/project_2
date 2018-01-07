@@ -20,10 +20,10 @@ int server_handshake(int * to_client);
 
 int client_handshake(int * to_server);
 
-void setup(); //creates boards for user1 and computer/user2 after client/server are connected
+int ** setup(); //creates boards for user1 and computer/user2 after client/server are connected
 
-
-char * user_input(); 
+char ** parse_args(char * s1);
+char * user_input(int ** board, int attk_board); 
 /*
   - A series of coordinates on the grid to place the first piece
   - If overlap, return error
