@@ -5,20 +5,20 @@ int server_handshake(int * to_client);
 int client_handshake(int * to_server);
 
  //creates boards for user1 and computer/user2 after client/server are connected
-int ** setup(){
-  int ** grid = NULL;
+char ** setup(){
+  char ** grid = NULL;
   int rows = 0;
   int columns = 0;
   int row_letter = 65;
-  grid = (int**) malloc(10* sizeof(int*));
+  grid = (char**) malloc(10* sizeof(char*));
   for (rows = 0; rows < 10; rows++){
-    grid[rows] = (int*) malloc(10* sizeof(int)); //columns
+    grid[rows] = (char*) malloc(10* sizeof(char)); //columns
   }
   
   
   for (rows = 0; rows<10 ; rows++){
     for (columns = 0; columns < 10; columns++){
-      grid[rows][columns] = 0;
+      grid[rows][columns] = 'o';
     }
   }
  
@@ -27,7 +27,7 @@ int ** setup(){
     printf("%c ", row_letter);
     row_letter++;
     for (columns = 0; columns < 10; columns++){
-      printf("%d ", grid[rows][columns]);
+      printf("%c ", grid[rows][columns]);
     
     }
     printf("\n");
@@ -48,6 +48,11 @@ char ** parse_args(char * s1){
   return ret;
 }
 
+
+//takes in coordinates and check if they're next to each other
+int placeship(int x, int y, int n){
+}
+
 /*
   - A series of coordinates on the grid to place the first piece
   - If overlap, return error
@@ -57,32 +62,76 @@ char ** parse_args(char * s1){
   - If not enough spots, return error
 - Error returns it back to that piece
     */
-char * user_input( int ** board, int attk_board){
+char * user_input( char ** board, int attk_board){
   char buffer[BUFFER_SIZE];
-  int ** coordinates;
+  char ** coordinates;
   int letter = 0;
+  int num = 0;
   fgets(buffer, sizeof(buffer), stdin);
+  
+  
   *strchr(buffer, '\n') = 0;
-  parse_args(buffer);
+  //printf("[%s]\n", buffer);
+  
   letter = (int)coordinates[0] - 65;
-  if(!attk_board){
-    //checks if coordinate is valid, if not try again
-   
-    //then checks if coordinate has x, if so try again
-    //if not replace 'o' with 'x'
+  num = atoi(coordinates[1]) - 1;
+  
+  if ((letter >= 0 && letter < 10) && (num >= 0 && num <10)){
+    
+    if(attk_board){ //attacking enemy ships
+      //NEEEDS TO COMMUNICATE WITH SERVER TOO SEE IF HIT OR MISS
+      if((board[letter][num] == 's')){
+	board[letter][num] = 'x';
+	
+      }
+      else if(board[letter][num] == 'x' ||
+	      board[letter][num] == 'm'){
+	printf("This coordinate is attacked already. Please try again.\n");
+      }
+      else{
+	printf("Entered coordinate is invalid. Please try again.\n");
+      }
+    }
+
+    
+    else{ //ship setup
+      //ask which ship user is getting up
+      printf("Setup your ships:\n");
+      printf("Please place down your carrier (takes up 5 consecutive horizonal/veritcal spaces)\n");
+      printf("Please place down your carrier (takes up 4 consecutive horizonal/veritcal spaces)\n");
+      printf("Please place down your carrier (takes up 3 consecutive horizonal/veritcal spaces)\n");
+      printf("Please place down your carrier (takes up 3 consecutive horizonal/veritcal spaces)\n");
+      printf("Please place down your carrier (takes up 2 consecutive horizonal/veritcal spaces)\n");
+    }
   }
+
   else{
-    //check for validity
-    //check for 'o'
+    printf("Input is invalid. Please try again.\n");
   }
   
 }
 
-void display();
+
 /*
   - The player is shown two boards, one is their own with the ships on it
   - The other is the other side and it appears blank
 */
+void display(char ** board){
+  int rows = 0;
+  int columns = 0;
+  int row_letter = 65;
+  printf("  1 2 3 4 5 6 7 8 9 10\n");
+  for (rows = 0; rows<10 ; rows++){
+    printf("%c ", row_letter);
+    row_letter++;
+    for (columns = 0; columns < 10; columns++){
+      printf("%c ", board[rows][columns]);
+    
+    }
+    printf("\n");
+  }
+ 
+}
 
 void play();
 /*
@@ -116,7 +165,12 @@ void endgame();
 
 
 int main(){
-  printf("%p",setup());
+  printf("My ships\n");
+  char ** mygrid = setup();
+  printf("\n");
+  user_input(mygrid, 0);
+  //display(mygrid);
+  
   return 0;
 }
 

@@ -10,3 +10,9 @@
 	
 1/6
 	Judy - Made a printable empty board
+	
+1/7
+	Judy - Game takes input but cannot use the information from input yet
+	     - Worked on user input:
+	       - Started working on setting up pieces
+	       - Started working on attacking other

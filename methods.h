@@ -20,10 +20,13 @@ int server_handshake(int * to_client);
 
 int client_handshake(int * to_server);
 
-int ** setup(); //creates boards for user1 and computer/user2 after client/server are connected
+char ** setup(); //creates boards for user1 and computer/user2 after client/server are connected
+
+int placeship(int x, int y, int n); //takes in coordinates and check if they're next to each other
+
 
 char ** parse_args(char * s1);
-char * user_input(int ** board, int attk_board); 
+char * user_input(char ** board, int attk_board); 
 /*
   - A series of coordinates on the grid to place the first piece
   - If overlap, return error
@@ -34,7 +37,7 @@ char * user_input(int ** board, int attk_board);
 - Error returns it back to that piece
     */
 
-void display();
+void display(char** board);
 /*
   - The player is shown two boards, one is their own with the ships on it
   - The other is the other side and it appears blank
