@@ -36,11 +36,11 @@ char ** setup(){
 }
 
 char ** parse_args(char * s1){
-  char ** ret = (char **) calloc (800, sizeof(char*));
+  char ** ret = (char **) calloc (sizeof(char*), 20);
   int i = 0;    
   
-  while (s1 && i < 799){
-    char * string = strsep (&s1," ");
+  while (s1 && i < 20){
+    char * string = strsep (&s1, " ");
     ret[i] = string;
     i++;
   }
@@ -53,6 +53,43 @@ char ** parse_args(char * s1){
 int placeship(int x, int y, int n){
 }
 
+int stringtoint(char *a){
+  if (!strcmp(a, "A")){
+    return 0;
+  }
+  else if (!strcmp(a, "B")){
+    return 1;
+  }
+  else if (!strcmp(a, "C")){
+    return 2;
+  }
+  else if (!strcmp(a, "D")){
+    return 3;
+  }
+  else if (!strcmp(a, "E")){
+    return 4;
+  }
+  else if (!strcmp(a, "F")){
+    return 5;
+  }
+  else if (!strcmp(a, "G")){
+    return 6;
+  }
+  else if (!strcmp(a, "H")){
+    return 7;
+  }
+  else if (!strcmp(a, "I")){
+    return 8;
+  }
+  else if (!strcmp(a, "J")){
+    return 9;
+  }
+  else{
+    return 10;
+  }
+  
+}
+
 /*
   - A series of coordinates on the grid to place the first piece
   - If overlap, return error
@@ -63,23 +100,37 @@ int placeship(int x, int y, int n){
 - Error returns it back to that piece
     */
 char * user_input( char ** board, int attk_board){
-  char buffer[BUFFER_SIZE];
-  char ** coordinates;
-  int letter = 0;
+  //  char buffer[BUFFER_SIZE];
+  char * input = (char*) calloc (BUFFER_SIZE, sizeof(char));
+  
+  //char ** coordinates;
+  int letter;
   int num = 0;
-  fgets(buffer, sizeof(buffer), stdin);
+  printf("coordinate:");
+  fgets(input, sizeof(input), stdin);
+
+  printf("hello\n");
+  letter = stringtoint(strsep(&input," "));
+  
+  num = atoi(strsep(&input, " "));
+
   
   
-  *strchr(buffer, '\n') = 0;
-  //printf("[%s]\n", buffer);
+  *strchr(input, '\n') = 0;
+  printf("1[%s]\n", letter);
+  printf("1[%d]\n", num);
+
+  //printf("2[%s]\n", input);
   
-  letter = (int)coordinates[0] - 65;
-  num = atoi(coordinates[1]) - 1;
+  //  num = atoi(coordinates[1]);
+  //printf("3[%s]\n", input); 
   
   if ((letter >= 0 && letter < 10) && (num >= 0 && num <10)){
     
     if(attk_board){ //attacking enemy ships
       //NEEEDS TO COMMUNICATE WITH SERVER TOO SEE IF HIT OR MISS
+      
+     
       if((board[letter][num] == 's')){
 	board[letter][num] = 'x';
 	
@@ -96,14 +147,20 @@ char * user_input( char ** board, int attk_board){
     
     else{ //ship setup
       //ask which ship user is getting up
+      board[letter][num] = 's';
+      /*
       printf("Setup your ships:\n");
       printf("Please place down your carrier (takes up 5 consecutive horizonal/veritcal spaces)\n");
       printf("Please place down your carrier (takes up 4 consecutive horizonal/veritcal spaces)\n");
       printf("Please place down your carrier (takes up 3 consecutive horizonal/veritcal spaces)\n");
       printf("Please place down your carrier (takes up 3 consecutive horizonal/veritcal spaces)\n");
       printf("Please place down your carrier (takes up 2 consecutive horizonal/veritcal spaces)\n");
+      */
     }
+      
+    printf("hello\n");
   }
+	
 
   else{
     printf("Input is invalid. Please try again.\n");
@@ -165,11 +222,12 @@ void endgame();
 
 
 int main(){
+  //char * = "Hello my name is";
   printf("My ships\n");
   char ** mygrid = setup();
   printf("\n");
   user_input(mygrid, 0);
-  //display(mygrid);
+  display(mygrid);
   
   return 0;
 }

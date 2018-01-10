@@ -24,6 +24,7 @@ char ** setup(); //creates boards for user1 and computer/user2 after client/serv
 
 int placeship(int x, int y, int n); //takes in coordinates and check if they're next to each other
 
+int stringtoint(char *a);
 
 char ** parse_args(char * s1);
 char * user_input(char ** board, int attk_board); 
