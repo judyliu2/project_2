@@ -21,3 +21,6 @@
 	
 1/10
 	Both - Finished debugging input function
+1/17 
+	Judy - Added to placement method
+		
