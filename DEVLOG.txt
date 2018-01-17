@@ -16,3 +16,8 @@
 	     - Worked on user input:
 	       - Started working on setting up pieces
 	       - Started working on attacking other
+1/9 
+	Both - Tried to debug input function
+	
+1/10
+	Both - Finished debugging input function
