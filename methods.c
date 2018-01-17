@@ -50,7 +50,11 @@ char ** parse_args(char * s1){
 
 
 //takes in coordinates and check if they're next to each other
-int placeship(int x, int y, int n){
+int placeship(char ** board,int x, int y, int size_n){
+  
+  while (size_n){ // in a loop until player pluts down all placesments of the ship
+    display(mygrid);
+  }
 }
 
 int stringtoint(char *a){
@@ -129,7 +133,7 @@ char * user_input( char ** board, int attk_board){
     
     if(attk_board){ //attacking enemy ships
       //NEEEDS TO COMMUNICATE WITH SERVER TOO SEE IF HIT OR MISS
-      
+      //WRITE TO SERVER AND READ BACK
      
       if((board[letter][num] == 's')){
 	board[letter][num] = 'x';
@@ -147,6 +151,7 @@ char * user_input( char ** board, int attk_board){
     
     else{ //ship setup
       //ask which ship user is getting up
+      if (board[letter][num] == 'o'){
       board[letter][num] = 's';
       /*
       printf("Setup your ships:\n");
@@ -156,6 +161,10 @@ char * user_input( char ** board, int attk_board){
       printf("Please place down your carrier (takes up 3 consecutive horizonal/veritcal spaces)\n");
       printf("Please place down your carrier (takes up 2 consecutive horizonal/veritcal spaces)\n");
       */
+      }
+      else{
+	printf("placement is invalid. Please try again\n");
+      }
     }
       
     printf("hello\n");
