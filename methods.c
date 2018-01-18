@@ -49,13 +49,53 @@ char ** parse_args(char * s1){
 }
 
 
-//takes in coordinates and check if they're next to each other
-int placeship(char ** board,int x, int y, int size_n){
-  
-  while (size_n){ // in a loop until player pluts down all placesments of the ship
-    display(mygrid);
+/*
+  - takes in coordinates and check if they're next to each othe
+  - int direction checks if the direction is correct
+     - 1 - top
+     - 2 - left
+     - 3 - down
+     - 4 - right
+*/
+
+int placeship(int letter1, int num1, int letter2, int num2, int direction){
+  if (direction == 1){
+    if (letter1 == letter2 -1 && num1 == num2 ){
+      return 1; 
+    }
+    else{
+      return 0;
+    }
+  }
+  else if (direction == 2 ){
+    if (letter1 == letter2 && num1 == num2 + 1 ){
+      return 1; 
+    }
+    else{
+      return 0;
+    }
+  }
+  else if (direction == 3){
+    if (letter1 == letter2 +1 && num1 == num2 ){
+      return 1; 
+    }
+    else{
+      return 0;
+    }
+  }
+  else if (direction == 4){
+    if (letter1 == letter2 && num1 == num2 - 1 ){
+      return 1; 
+    }
+    else{
+      return 0;
+    }
+  }
+  else{
+    return 0;
   }
 }
+
 
 int stringtoint(char *a){
   if (!strcmp(a, "A")){
@@ -103,7 +143,7 @@ int stringtoint(char *a){
   - If not enough spots, return error
 - Error returns it back to that piece
     */
-char * user_input( char ** board, int attk_board){
+char * userattac_input( char ** board){
   //  char buffer[BUFFER_SIZE];
   char * input = (char*) calloc (BUFFER_SIZE, sizeof(char));
   
@@ -131,45 +171,25 @@ char * user_input( char ** board, int attk_board){
   
   if ((letter >= 0 && letter < 10) && (num >= 0 && num <10)){
     
-    if(attk_board){ //attacking enemy ships
-      //NEEEDS TO COMMUNICATE WITH SERVER TOO SEE IF HIT OR MISS
-      //WRITE TO SERVER AND READ BACK
-     
-      if((board[letter][num] == 's')){
-	board[letter][num] = 'x';
-	
-      }
-      else if(board[letter][num] == 'x' ||
-	      board[letter][num] == 'm'){
-	printf("This coordinate is attacked already. Please try again.\n");
-      }
-      else{
-	printf("Entered coordinate is invalid. Please try again.\n");
-      }
-    }
-
     
-    else{ //ship setup
-      //ask which ship user is getting up
-      if (board[letter][num] == 'o'){
-      board[letter][num] = 's';
-      /*
-      printf("Setup your ships:\n");
-      printf("Please place down your carrier (takes up 5 consecutive horizonal/veritcal spaces)\n");
-      printf("Please place down your carrier (takes up 4 consecutive horizonal/veritcal spaces)\n");
-      printf("Please place down your carrier (takes up 3 consecutive horizonal/veritcal spaces)\n");
-      printf("Please place down your carrier (takes up 3 consecutive horizonal/veritcal spaces)\n");
-      printf("Please place down your carrier (takes up 2 consecutive horizonal/veritcal spaces)\n");
-      */
-      }
-      else{
-	printf("placement is invalid. Please try again\n");
-      }
-    }
+    //NEEEDS TO COMMUNICATE WITH SERVER TOO SEE IF HIT OR MISS
+    //WRITE TO SERVER AND READ BACK
+    
+    if((board[letter][num] == 's')){
+      board[letter][num] = 'x';
       
-    printf("hello\n");
+    }
+    else if(board[letter][num] == 'x' ||
+	      board[letter][num] == 'm'){
+      printf("This coordinate is attacked already. Please try again.\n");
+    }
+    else{
+      printf("Entered coordinate is invalid. Please try again.\n");
+    }
   }
-	
+
+  
+  	
 
   else{
     printf("Input is invalid. Please try again.\n");
@@ -178,10 +198,73 @@ char * user_input( char ** board, int attk_board){
 }
 
 
+
+
 /*
   - The player is shown two boards, one is their own with the ships on it
   - The other is the other side and it appears blank
 */
+
+char * usersetup_input(char ** board, int ship_size){
+/*
+  - setup for 1 ship at a time
+  - start with one spot
+  - check if that spot is valid
+      - if valid, open a while loop for ship_size-1 times for the last few spots
+        - check if the spots placed are next to each other
+      - else try again
+
+*/
+  char * input = (char*) calloc (BUFFER_SIZE, sizeof(char));
+  
+  //char ** coordinates;
+  int first_letter;
+  int firstnum;
+
+  int prev_let;
+  int prev_num;
+  
+  int letter;
+  int num = 0;
+
+  while (ship_size){
+    printf("coordinate:");
+    fgets(input, sizeof(input), stdin);
+    
+    printf("hello\n");
+    letter = stringtoint(strsep(&input," "));
+  
+    num = atoi(strsep(&input, " "));
+
+    
+  
+    *strchr(input, '\n') = 0;
+    printf("1[%s]\n", letter);
+    printf("1[%d]\n", num);
+
+  //printf("2[%s]\n", input);
+  
+  //  num = atoi(coordinates[1]);
+  //printf("3[%s]\n", input); 
+  
+    if ((letter >= 0 && letter < 10) && (num >= 0 && num <10)){
+  
+      if (board[letter][num-1] == 'o'){
+	board[letter][num-1] = 's';
+	display(board);
+      }
+    
+    }
+    else{
+      printf("placement is invalid. Please try again\n");
+    }
+    ship_size -= 1;
+  }
+  printf("hello\n");
+}
+	
+
+
 void display(char ** board){
   int rows = 0;
   int columns = 0;
@@ -235,7 +318,7 @@ int main(){
   printf("My ships\n");
   char ** mygrid = setup();
   printf("\n");
-  user_input(mygrid, 0);
+  usersetup_input(mygrid,3);
   display(mygrid);
   
   return 0;

@@ -22,12 +22,12 @@ int client_handshake(int * to_server);
 
 char ** setup(); //creates boards for user1 and computer/user2 after client/server are connected
 
-int placeship(int x, int y, int n); //takes in coordinates and check if they're next to each other
+int placeship(int letter1, int num1, int letter2, int num2, int direction); //takes in coordinates and check if they're next to each other
 
 int stringtoint(char *a);
 
 char ** parse_args(char * s1);
-char * user_input(char ** board, int attk_board); 
+char * usersetup_input(char ** board, int ship_size); 
 /*
   - A series of coordinates on the grid to place the first piece
   - If overlap, return error
@@ -37,6 +37,7 @@ char * user_input(char ** board, int attk_board);
   - If not enough spots, return error
 - Error returns it back to that piece
     */
+char * userattac_input(char ** board);
 
 void display(char** board);
 /*

@@ -21,3 +21,16 @@
 	
 1/10
 	Both - Finished debugging input function
+
+1/17
+	Judy - Continued working on setting up pieces
+	       - Started placement function
+
+1/18
+	Judy - Continued working on setting up pieces
+	       - Finished writing placement function
+	       - Can place n ships at a time
+	       
+	To do for next time:
+	   - Include placement function into the setup function
+	   - Test placement
