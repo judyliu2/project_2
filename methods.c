@@ -56,41 +56,33 @@ char ** parse_args(char * s1){
      - 2 - left
      - 3 - down
      - 4 - right
+
+   returns the direction
 */
 
 int placeship(int letter1, int num1, int letter2, int num2, int direction){
-  if (direction == 1){
+  //DIRECTION IS ONLY USED FOR COMPUTER GENERATED PLACEMENTS
+  if (direction == 0){
     if (letter1 == letter2 -1 && num1 == num2 ){
       return 1; 
     }
-    else{
-      return 0;
+    
+    
+    else if (letter1 == letter2 && num1 == num2 + 1 ){
+      return 2; 
+    }
+  
+    
+    else if (letter1 == letter2 +1 && num1 == num2 ){
+      return 3; 
+    }
+    
+  
+    else if (letter1 == letter2 && num1 == num2 - 1 ){
+      return 4; 
     }
   }
-  else if (direction == 2 ){
-    if (letter1 == letter2 && num1 == num2 + 1 ){
-      return 1; 
-    }
-    else{
-      return 0;
-    }
-  }
-  else if (direction == 3){
-    if (letter1 == letter2 +1 && num1 == num2 ){
-      return 1; 
-    }
-    else{
-      return 0;
-    }
-  }
-  else if (direction == 4){
-    if (letter1 == letter2 && num1 == num2 - 1 ){
-      return 1; 
-    }
-    else{
-      return 0;
-    }
-  }
+    
   else{
     return 0;
   }
@@ -216,18 +208,24 @@ char * usersetup_input(char ** board, int ship_size){
 
 */
   char * input = (char*) calloc (BUFFER_SIZE, sizeof(char));
+
+  int start_size = ship_size;
   
   //char ** coordinates;
-  int first_letter;
-  int firstnum;
+  int start_let;
+  int start_num;
 
+  int dir;
+  
   int prev_let;
   int prev_num;
   
   int letter;
   int num = 0;
+  
 
   while (ship_size){
+    
     printf("coordinate:");
     fgets(input, sizeof(input), stdin);
     
@@ -237,7 +235,14 @@ char * usersetup_input(char ** board, int ship_size){
     num = atoi(strsep(&input, " "));
 
     
-  
+    if (ship_size == start_size){
+      start_let = letter;
+      start_num = num;
+    }
+
+    prev_let = letter;
+    prev_num = num;
+    
     *strchr(input, '\n') = 0;
     printf("1[%s]\n", letter);
     printf("1[%d]\n", num);
@@ -248,13 +253,41 @@ char * usersetup_input(char ** board, int ship_size){
   //printf("3[%s]\n", input); 
   
     if ((letter >= 0 && letter < 10) && (num >= 0 && num <10)){
-  
+
+      
       if (board[letter][num-1] == 'o'){
-	board[letter][num-1] = 's';
-	display(board);
+	
+	if(ship_size != start_size){ // not first ship, compare placements
+	  if (ship_size == start_size -1){
+	    dir = placeship(start_let, start_num, letter,num-1,0);
+	  }
+	  
+	  //if the input is next to the start coordinates, place down
+	  else if (dir){
+	    board[letter][num-1] = 's';
+	    display(board);
+
+	    //STILL NEED TO MAKE A CASE SO THAT THE SHIPS ARE ALIGNED
+	    // 2&4 left/right
+	    // 1&3 top/bottom
+	  }
+	  else{
+	    printf("try entering a coordinate next to the first previous input\n");
+	  }
+	}
+	
+       
+	  //when you have the direction
+	
+	
+	else{
+	  board[letter][num-1] = 's';
+	  display(board);
+	}
+       
       }
-    
     }
+  
     else{
       printf("placement is invalid. Please try again\n");
     }

@@ -21,7 +21,6 @@
 	
 1/10
 	Both - Finished debugging input function
-<<<<<<< HEAD
 
 1/17
 	Judy - Continued working on setting up pieces
@@ -35,8 +34,10 @@
 	To do for next time:
 	   - Include placement function into the setup function
 	   - Test placement
-=======
-1/17 
-	Judy - Added to placement method
-		
->>>>>>> 2708dafc2905685d069af538b39447df7bfa4647
+
+1/19
+	Judy - Included placement method inside the input function
+
+	To do:
+	   - Test the functions
+	   - Include cases to make sure that the ship is either vertical or horizontal
