@@ -1,43 +1,61 @@
 12/31	
-	Judy - Created a skeleton based on the design document
+	Judy:
+	- Created a skeleton based on the design document
 
 1/3
-	Judy - Added necessary files for client/server 
+	Judy:
+	- Added necessary files for client/server 
 
 1/4
 	
-	Judy - Made sure client/server part runs
+	Judy:
+	- Made sure client/server part runs
 	
 1/6
-	Judy - Made a printable empty board
+	Judy:
+	- Made a printable empty board
 	
 1/7
-	Judy - Game takes input but cannot use the information from input yet
-	     - Worked on user input:
-	       - Started working on setting up pieces
-	       - Started working on attacking other
+	Judy:
+	- Game takes input but cannot use the information from input yet
+	- Worked on user input:
+	     - Started working on setting up pieces
+	     - Started working on attacking other
 1/9 
-	Both - Tried to debug input function
+	Both:
+	- Tried to debug input function
 	
 1/10
-	Both - Finished debugging input function
+	Both:
+	- Finished debugging input function
 
 1/17
-	Judy - Continued working on setting up pieces
-	       - Started placement function
+	Judy:
+	- Continued working on setting up pieces
+	- Started placement function
 
 1/18
-	Judy - Continued working on setting up pieces
-	       - Finished writing placement function
-	       - Can place n ships at a time
+	Judy:
+	- Continued working on setting up pieces
+	- Finished writing placement function
+	- Can place n ships at a time
 	       
 	To do for next time:
 	   - Include placement function into the setup function
 	   - Test placement
 
 1/19
-	Judy - Included placement method inside the input function
+	Judy:
+	- Included placement method inside the input function
 
 	To do:
 	   - Test the functions
 	   - Include cases to make sure that the ship is either vertical or horizontal
+
+1/20
+	Judy - Finished testing input function
+
+	To do:
+	   - Attacking function for both user and computer
+	   - Setting up function for computer
+	   - Allow for client (user) and server (computer) to play against each other
