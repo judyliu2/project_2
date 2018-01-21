@@ -39,6 +39,7 @@ char * usersetup_input(char ** board, int ship_size);
 - Error returns it back to that piece
     */
 char * userattac_input(char ** board);
+int* next_place(char**board, int letter, int num1, int dir);
 
 void comp_setup(char** board, int ship_size);
 void comp_attk(char** board);

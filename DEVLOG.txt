@@ -53,9 +53,19 @@
 	   - Include cases to make sure that the ship is either vertical or horizontal
 
 1/20
-	Judy - Finished testing input function
+	Judy:
+	- Finished testing input function
 
 	To do:
 	   - Attacking function for both user and computer
 	   - Setting up function for computer
 	   - Allow for client (user) and server (computer) to play against each other
+
+1/21 
+	Judy:
+	- Finished setup function for 1 boat, did not account for when there are various boats in a board
+	To do:
+	   - Attacking function for both user and computer
+	   - Edit set up function (various) for computer
+	   - Allow for client (user) and server (computer) to play against each other
+
