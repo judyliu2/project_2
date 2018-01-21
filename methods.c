@@ -60,42 +60,38 @@ char ** parse_args(char * s1){
    returns the direction
 */
 
-int placement(int letter1, int num1, int letter2, int num2, int direction){
-  //DIRECTION IS ONLY USED FOR COMPUTER GENERATED PLACEMENTS
-  if (direction == 0){
-    if ((letter1 == (letter2 +1)) && (num1 == num2) ){
-      printf("1\n");
-      return 1; 
-    }
-    
-    
-    else if ((letter1 == letter2) && (num1 == (num2 + 1)) ){
-      printf("2\n");
-      return 2; 
+int placement(int letter1, int num1, int letter2, int num2){
+ 
+  
+  if ((letter1 == (letter2 +1)) && (num1 == num2) ){
+    printf("1\n");
+    return 1; 
+  }
+  
+  
+  else if ((letter1 == letter2) && (num1 == (num2 + 1)) ){
+    printf("2\n");
+    return 2; 
     }
   
-    
-    else if ((letter1 == (letter2 -1)) && (num1 == num2) ){
-      printf("3\n");
-      return 3; 
-    }
-    
   
-    else if ((letter1 == letter2) && (num1 == (num2 - 1)) ){
-      printf("4\n");
-      return 4; 
-    }
-    else{
-      printf("try again\n");
-      return 0;
-    }
+  else if ((letter1 == (letter2 -1)) && (num1 == num2) ){
+    printf("3\n");
+    return 3; 
   }
     
+  
+  else if ((letter1 == letter2) && (num1 == (num2 - 1)) ){
+    printf("4\n");
+    return 4; 
+  }
   else{
-    printf("0\n");
+    printf("try again\n");
     return 0;
   }
 }
+
+  
 
 
 int stringtoint(char *a){
@@ -266,7 +262,7 @@ char * usersetup_input(char ** board, int ship_size){
 	
 	}
 	else if (start_size -1 == ship_size ){
-	  dir = placement(start_let, start_num, letter,num,0);
+	  dir = placement(start_let, start_num, letter,num);
 	  if (dir){
 	    prev_let = letter;
 	    prev_num = num;
@@ -286,8 +282,8 @@ char * usersetup_input(char ** board, int ship_size){
 	    // 1&3 top/bottom
 	    if (dir % 2 == 1){//top/bottom
 	      if (dir == 3){
-		if(placement(start_let, start_num, letter, num, 0) == 1 ||
-		   placement(prev_let, prev_num, letter, num, 0) == 3){
+		if(placement(start_let, start_num, letter, num) == 1 ||
+		   placement(prev_let, prev_num, letter, num) == 3){
 		  board[letter][num] = 's';
 		  display(board);
 		  ship_size -=1;
@@ -298,8 +294,8 @@ char * usersetup_input(char ** board, int ship_size){
 		}
 	      }
 	      else{
-		if(placement(start_let, start_num, letter, num, 0) == 3 ||
-		   placement(prev_let, prev_num, letter, num, 0) == 1){
+		if(placement(start_let, start_num, letter, num) == 3 ||
+		   placement(prev_let, prev_num, letter, num) == 1){
 		  board[letter][num] = 's';
 		  display(board);
 		  ship_size -=1;
@@ -312,8 +308,8 @@ char * usersetup_input(char ** board, int ship_size){
 	    }
 	    else{ //left/right
 	      if(dir == 2){
-		if(placement(start_let, start_num, letter, num, 0) == 4 ||
-		   placement(prev_let, prev_num, letter, num, 0) == 2){
+		if(placement(start_let, start_num, letter, num) == 4 ||
+		   placement(prev_let, prev_num, letter, num) == 2){
 		  board[letter][num] = 's';
 		  display(board);
 		  ship_size -=1;
@@ -324,8 +320,8 @@ char * usersetup_input(char ** board, int ship_size){
 		}
 	      }
 	      else{
-		if(placement(start_let, start_num, letter, num, 0) == 2 ||
-		   placement(prev_let, prev_num, letter, num, 0) == 4){
+		if(placement(start_let, start_num, letter, num) == 2 ||
+		   placement(prev_let, prev_num, letter, num) == 4){
 		  board[letter][num] = 's';
 		  display(board);
 		  ship_size -=1;
@@ -352,7 +348,140 @@ char * usersetup_input(char ** board, int ship_size){
 }
 
 	
+void comp_setup(char** board, int ship_size){
+  int start_size = ship_size;
 
+  int start_let;
+  int start_num;
+
+  int dir = 0;
+  int direction;
+  
+  int prev_let;
+  int prev_num;
+  
+  int letter;
+  int num = 0;
+  
+  time_t t;
+
+  srand((unsigned) time(&t));
+  
+  if(ship_size){
+    
+    letter = rand() % 10;
+  
+    num = rand() % 10 ;
+    printf("letter: %d \n", letter);
+    printf("number: %d \n", num);
+  
+    
+  
+      
+      
+    if (board[letter][num] == 'o'){
+      if (ship_size == start_size){
+	ship_size -= 1;
+	start_let = letter;
+	start_num = num;
+	prev_let = letter;
+	prev_num = num;
+	board[letter][num] = 's';
+	display(board);
+	printf("ship_size after first input: %d\n", ship_size);
+	
+      }
+    
+      
+      else if (start_size -1 == ship_size ){
+	direction = rand() % 4 + 1;
+	dir = placement(start_let, start_num, letter,num);
+	if (dir){
+	  prev_let = letter;
+	  prev_num = num;
+	  board[letter][num] = 's';
+	  display(board);
+	  ship_size -= 1;
+	  printf("shipsize: %d \n", ship_size);
+	  printf("dir: %d\n", ship_size);
+	}
+      }
+      /*
+      else{
+	
+	if(dir){
+	  //if the input is next to the start coordinates, place down
+	    //STILL NEED TO MAKE A CASE SO THAT THE SHIPS ARE ALIGNED
+	    // 2&4 left/right
+	    // 1&3 top/bottom
+	  if (dir % 2 == 1){//top/bottom
+	    if (dir == 3){
+	      if(placement(start_let, start_num, letter, num, 0) == 1 ||
+		 placement(prev_let, prev_num, letter, num, 0) == 3){
+		board[letter][num] = 's';
+		display(board);
+		ship_size -=1;
+		  printf("shipsize: %d \n", ship_size);
+	      }
+	      else{
+		printf("try again1\n");
+	      }
+	    }
+	    else{
+	      if(placement(start_let, start_num, letter, num, 0) == 3 ||
+		 placement(prev_let, prev_num, letter, num, 0) == 1){
+		  board[letter][num] = 's';
+		  display(board);
+		  ship_size -=1;
+		  printf("shipsize: %d \n", ship_size);
+	      }
+	      else{
+		printf("try again2\n");
+	      }
+	    }
+	  }
+	  else{ //left/right
+	    if(dir == 2){
+	      if(placement(start_let, start_num, letter, num, 0) == 4 ||
+		 placement(prev_let, prev_num, letter, num, 0) == 2){
+		board[letter][num] = 's';
+		  display(board);
+		  ship_size -=1;
+		  printf("shipsize: %d \n", ship_size);
+	      }
+	      else{
+		printf("try again3\n");
+	      }
+	    }
+	      else{
+		if(placement(start_let, start_num, letter, num, 0) == 2 ||
+		   placement(prev_let, prev_num, letter, num, 0) == 4){
+		  board[letter][num] = 's';
+		  display(board);
+		  ship_size -=1;
+		  printf("shipsize: %d \n", ship_size);
+		}
+		else{
+		  printf("try again4\n");
+		}
+	      }
+	  }
+	}
+	
+      }
+    }
+     */ 	  
+	
+      else{
+	printf("placement is invalid. Please try again\n");
+      }
+      
+      
+    } 
+  }
+  
+}
+void comp_attk(char** board);
 
 void display(char ** board){
   int rows = 0;
@@ -407,7 +536,7 @@ int main(){
   printf("My ships\n");
   char ** mygrid = setup();
   printf("\n");
-  usersetup_input(mygrid,3);
+  comp_setup(mygrid,3);
   display(mygrid);
   // placement(2,3, 2,3,0);
   return 0;

@@ -6,6 +6,7 @@
 #include <sys/stat.h>
 #include <string.h>
 #include <errno.h>
+#include <time.h>
 
 #define ACK "HELLO"
 #define HANDSHAKE_BUFFER_SIZE 10
@@ -22,7 +23,7 @@ int client_handshake(int * to_server);
 
 char ** setup(); //creates boards for user1 and computer/user2 after client/server are connected
 
-int placement(int letter1, int num1, int letter2, int num2, int direction); //takes in coordinates and check if they're next to each other
+int placement(int letter1, int num1, int letter2, int num2); //takes in coordinates and check if they're next to each other
 
 int stringtoint(char *a);
 
@@ -38,6 +39,9 @@ char * usersetup_input(char ** board, int ship_size);
 - Error returns it back to that piece
     */
 char * userattac_input(char ** board);
+
+void comp_setup(char** board, int ship_size);
+void comp_attk(char** board);
 
 void display(char** board);
 /*
