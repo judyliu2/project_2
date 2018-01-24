@@ -38,11 +38,11 @@ char * usersetup_input(char ** board, int ship_size);
   - If not enough spots, return error
 - Error returns it back to that piece
     */
-char * userattac_input(char ** board);
+char * userattac_input(char ** board,int *from_server, int *to_server);
 int* next_place(char**board, int letter, int num1, int dir);
 
 void comp_setup(char** board, int ship_size);
-void comp_attk(char** board);
+void comp_attk(char** board, int * from_client, int *to_client);
 
 void display(char** board);
 /*

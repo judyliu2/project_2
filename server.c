@@ -16,6 +16,7 @@ int main() {
   
   int from_client;
   int to_client;
+  
   while(1){
     from_client = server_setup();
     printf("server forking\n");
@@ -23,6 +24,15 @@ int main() {
       //to_client = server_connect(from_client);
       subserver(from_client);
       
+      char ** mygrid = setup();
+      char ** myattackgrid = setup();
+      usersetup_input(mygrid, 5);
+      usersetup_input(mygrid, 4);
+      usersetup_input(mygrid, 3);
+      usersetup_input(mygrid, 3);
+      usersetup_input(mygrid, 2);
+      
+
     }else{
       remove("HOLA");
       close(from_client);

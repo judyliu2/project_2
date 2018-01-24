@@ -66,6 +66,14 @@
 	- Finished setup function for 1 boat, did not account for when there are various boats in a board
 	To do:
 	   - Attacking function for both user and computer
-	   - Edit set up function (various) for computer
+	   - Edit set up function (various ships) for computer
 	   - Allow for client (user) and server (computer) to play against each other
 
+1/24
+	Judy:
+	- Worked on setting up how client/server interact
+	To do:
+	   - Attacking function for both user and computer
+	   - Edit set up function (various ships) for computer
+	   - TESTING
+	   - edit makefile

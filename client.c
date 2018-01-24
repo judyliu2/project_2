@@ -9,9 +9,28 @@ int main() {
   printf("Enter '1' to start game\n");
   char * start = fgets(buffer,sizeof(buffer), stdin);
   if (strcmp(start,"1")){
-  
+    
     from_server = client_handshake( &to_server );
-    setup();
+    char ** mygrid = setup();
+    char ** myattackgrid = setup();
+    printf("my grid: \n\n");
+    display(mygrid);
+    printf("\nSetting up for ship of size 5\n");
+    usersetup_input(mygrid, 5);
+    printf("\nSetting up for ship of size 4\n");
+    usersetup_input(mygrid, 4);
+    printf("\nSetting up for ship of size 3\n");
+    usersetup_input(mygrid, 3);
+    printf("\nSetting up for ship of size 3\n");
+    usersetup_input(mygrid, 3);
+    printf("\nSetting up for ship of size 2\n");
+    usersetup_input(mygrid, 2);
+    printf("done setting up\n");
+    display(mygrid);
+    printf("\nattack grid\n\n");
+    display(myattackgrid);
+    //userattac(input, to_server);
+    /*
     while (1) {
       
       printf("Enter coodrinates: ");
@@ -21,5 +40,6 @@ int main() {
       read(from_server, buffer, sizeof(buffer));
       printf("received: [%s]\n", buffer);
     }
+    */
   }
 }

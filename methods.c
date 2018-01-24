@@ -140,7 +140,7 @@ int stringtoint(char *a){
   - If not enough spots, return error
 - Error returns it back to that piece
     */
-char * userattac_input( char ** board){
+char * userattac_input( char ** board, int *from_server, int *to_server){
   //  char buffer[BUFFER_SIZE];
   char * input = (char*) calloc (BUFFER_SIZE, sizeof(char));
   
@@ -171,6 +171,8 @@ char * userattac_input( char ** board){
     
     //NEEEDS TO COMMUNICATE WITH SERVER TOO SEE IF HIT OR MISS
     //WRITE TO SERVER AND READ BACK
+    //  write(*to_server, input, sizeof(input));
+    
     
     if((board[letter][num] == 's')){
       board[letter][num] = 'x';
@@ -484,8 +486,9 @@ void comp_setup(char** board, int ship_size){
   
 }
 
-void comp_attk(char** board);
-
+void comp_attk(char** board, int * from_client, int *to_client){ //should be VERY similar to setup
+  
+}
 void display(char ** board){
   int rows = 0;
   int columns = 0;
