@@ -73,7 +73,17 @@
 	Judy:
 	- Worked on setting up how client/server interact
 	To do:
-	   - Attacking function for both user and computer
+	   - Attacking function for computer
 	   - Edit set up function (various ships) for computer
-	   - TESTING
+	   - TESTING attack function for user
 	   - edit makefile
+1/25
+	Judy:
+	- Used write/read functions inside attack functions
+	- Able to input various ships (but a little bit buggy when the ships are close to the sides.
+
+	To do:
+	 - Attacking function
+	 - Debug/testing
+	 - make file
+	 - update readme

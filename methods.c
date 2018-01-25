@@ -160,19 +160,15 @@ char * userattac_input( char ** board, int *from_server, int *to_server){
   *strchr(input, '\n') = 0;
   printf("1[%d]\n", letter);
   printf("1[%d]\n", num);
-
-  //printf("2[%s]\n", input);
-  
-  //  num = atoi(coordinates[1]);
-  //printf("3[%s]\n", input); 
+  //while (read(from_server, buffer, sizeof(buffer){
   
   if ((letter >= 0 && letter <= 10) && (num >= 0 && num <=10)){
     
     
     //NEEEDS TO COMMUNICATE WITH SERVER TOO SEE IF HIT OR MISS
     //WRITE TO SERVER AND READ BACK
-    //  write(*to_server, input, sizeof(input));
-    
+    //  write(*to_server, buffer, sizeof(buffer)); //attack 
+    // read(from_server, buffer, sizeof(buffer)); //hit/miss
     
     if((board[letter][num] == 's')){
       board[letter][num] = 'x';
@@ -197,23 +193,32 @@ char * userattac_input( char ** board, int *from_server, int *to_server){
 }
 
 
+
 int* next_place(char**board, int letter, int num, int dir){
   int * coordinates = (int*) malloc (sizeof(int)*2);
   if (dir == 1){
-    coordinates[0] = letter-1;
-    coordinates[1] = num;
+    if (letter -1 >= 0){
+      coordinates[0] = letter-1;
+      coordinates[1] = num;
+    }
   }
   else if (dir == 2){
-    coordinates[0] = letter;
-    coordinates[1] = num -1;
+    if (num -1 >= 0){
+      coordinates[0] = letter;
+      coordinates[1] = num -1;
+    }
   }
   else if (dir == 3){
-    coordinates[0] = letter + 1;
-    coordinates[1] = num;
+    if( letter +1 <10){
+      coordinates[0] = letter + 1;
+      coordinates[1] = num;
+    }
   }
   else{
-    coordinates[0] = letter ;
-    coordinates[1] = num + 1;
+    if (num + 1 < 10){
+      coordinates[0] = letter ;
+      coordinates[1] = num + 1;
+    }
   }
   return coordinates;
 }
@@ -378,8 +383,8 @@ void comp_setup(char** board, int ship_size){
   int dir = 0;
   int direction;
   
-  int prev_let;
-  int prev_num;
+  int r = 0;
+  int c = 0;
 
   int * nextcor;
   int letter = 0;
@@ -387,18 +392,89 @@ void comp_setup(char** board, int ship_size){
   
   time_t t;
 
+  int * letters;
+  letters = (int*) malloc (sizeof(int*));
+  int * nums;
+  nums = (int*) malloc (sizeof(int*));
+  
   srand((unsigned) time(&t));
   
-  while(ship_size){    
-    /* letter = rand() % 10;
+  while(ship_size){
+    if (ship_size == start_size){
+      letter = rand() % 10;      
+      num = rand() % 10 ;
+      if(board[letter][num] == 'o'){
+	letters[r] = letter;
+	nums[c] = num;
+	start_let = letter;
+	start_num = num;
+	r ++;
+	c ++;
+	ship_size--;
+      }
+      else{
+	letter = rand() % 10;      
+	num = rand() % 10 ;
+      }
+    }
+      
+    else if(ship_size == start_size -1){
+      direction = rand()%2 + 1;
+      nextcor = next_place(board, letter, num , direction);
+      if(board[nextcor[0]][nextcor[1]] == 'o'){
+	letters[r] = nextcor[0];
+	nums[c] = nextcor[1];
+
+	r ++;
+	c ++;
+	ship_size--;
+      }
+      else{
+	direction += 2;
+      }
+    }
+    else{
+      nextcor = next_place(board, letters[r-1], nums[c-1] , direction);
+      if (board[nextcor[0]][nextcor[1]] == 'o'){
+	letters[r] = nextcor[0];
+	nums[c] = nextcor[1];
+
+	r ++;
+        c ++;
+	ship_size--;
+
+      }
+      else{
+	direction += 2;
+	nextcor = next_place(board, start_let, start_num, direction);
+	if (board[nextcor[0]][nextcor[1]] == 'o'){
+	  letters[r] = nextcor[0];
+	  nums[c] = nextcor[1];
+
+	  r ++;
+	  c ++;
+	  ship_size--;
+	}
+	else{
+	  ship_size = start_size;
+	  r = 0;
+	  c = 0;
+	}
+      }
+    }
+  }
+
+  if (ship_size == 0){
+    for (r = 0; r < start_size; r++){
+      for (c = 0; c <start_size; c++){
+	board[letters[r]][nums[c]] = 's';
+      }
+    }
+  }
+}
+    //first should check area around it to see it's suitable to place ship
   
-    num = rand() % 10 ;
-    printf("letter: %d \n", letter);
-    printf("number: %d \n", num);
-    */
-    
-  
-    
+    /*
     if (ship_size == start_size){
       letter = rand() % 10;      
       num = rand() % 10 ;
@@ -421,7 +497,7 @@ void comp_setup(char** board, int ship_size){
       
       if (nextcor[0] < 10 && nextcor[1] < 10 &&
 	  nextcor[0] >= 0 && nextcor[1] >=0 &&
-	  board[nextcor[0]][nextcor[2]] == 'o'){
+	  board[nextcor[0]][nextcor[1]] == 'o'){
 	prev_let = start_let = letter ;
 	prev_num = start_num = num;
 	letter = nextcor[0];
@@ -435,7 +511,7 @@ void comp_setup(char** board, int ship_size){
 	nextcor = next_place(board, start_let,start_num, direction);
 	if (nextcor[0] < 10 && nextcor[1] < 10 &&
 	    nextcor[0] >= 0 && nextcor[1] >=0 &&
-	    board[nextcor[0]][nextcor[2]] == 'o'){
+	    board[nextcor[0]][nextcor[1]] == 'o'){
 	  prev_let = letter ;
 	  prev_num = num;
 	  letter = nextcor[0];
@@ -454,7 +530,7 @@ void comp_setup(char** board, int ship_size){
       
       if (nextcor[0] < 10 && nextcor[1] < 10 &&
 	  nextcor[0] >= 0 && nextcor[1] >=0 &&
-	  board[nextcor[0]][nextcor[2]] == 'o'){
+	  board[nextcor[0]][nextcor[1]] == 'o'){
 	prev_let = start_let = letter ;
 	prev_num = start_num = num;
 	letter = nextcor[0];
@@ -468,7 +544,7 @@ void comp_setup(char** board, int ship_size){
 	nextcor = next_place(board, start_let,start_num, direction);
 	if (nextcor[0] < 10 && nextcor[1] < 10 &&
 	    nextcor[0] >= 0 && nextcor[1] >=0 &&
-	    board[nextcor[0]][nextcor[2]] == 'o'){
+	    board[nextcor[0]][nextcor[1]] == 'o'){
 	  prev_let = letter ;
 	  prev_num = num;
 	  letter = nextcor[0];
@@ -481,12 +557,14 @@ void comp_setup(char** board, int ship_size){
     }
       
     
-     
-  }
-  
 }
+    */
+
 
 void comp_attk(char** board, int * from_client, int *to_client){ //should be VERY similar to setup
+  //read(from_client, buffer,sizeof(buffer);
+  //checks the coordinates from buffer and writes hit/miss
+  //write(to_client, buffer,sizeof(buffer);
   
 }
 void display(char ** board){
@@ -543,6 +621,10 @@ int main(){
   char ** mygrid = setup();
   printf("\n");
   comp_setup(mygrid,3);
+  comp_setup(mygrid,5);
+  comp_setup(mygrid,4);
+   comp_setup(mygrid,3);
+  comp_setup(mygrid,2);
   display(mygrid);
   // placement(2,3, 2,3,0);
   return 0;
