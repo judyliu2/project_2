@@ -1,3 +1,5 @@
 # Battleship
 ## By: Pacy Yan and Judy Liu
-This should list project members, how to compile and use your project and a list of all the files that should be in the repository.
+1. Open 2 Terminals
+2. make
+3. run client on one terninal and run server on another
