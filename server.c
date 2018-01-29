@@ -1,4 +1,5 @@
 #include "methods.h"
+
 #include <signal.h>
 
 void process(char *s);
@@ -21,10 +22,12 @@ int main() {
     from_client = server_setup();
     printf("server forking\n");
     if(!fork()){
-      //to_client = server_connect(from_client);
+      to_client = server_connect(from_client);
+      
       subserver(from_client);
       
       char ** mygrid = setup();
+      
       char ** myattackgrid = setup();
       usersetup_input(mygrid, 5);
       usersetup_input(mygrid, 4);

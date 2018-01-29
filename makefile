@@ -3,7 +3,7 @@ forking: client fserver
 basic: client bserver
 
 fserver: server.o networking.o
-	gcc -o server server.o networking.o
+	gcc -o server server.o networking.o methods.o
 
 client: client.o networking.o methods.o
 	gcc -o client client.o networking.o methods.o

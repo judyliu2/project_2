@@ -15,6 +15,7 @@ int main() {
     char ** myattackgrid = setup();
     printf("my grid: \n\n");
     display(mygrid);
+    printf("Type coordinates with a space between and after each character");
     printf("\nSetting up for ship of size 5\n");
     usersetup_input(mygrid, 5);
     printf("\nSetting up for ship of size 4\n");

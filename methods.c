@@ -614,7 +614,7 @@ void endgame();
   - Prompts restart or quit
 */
 
-
+/*
 int main(){
 
   printf("My ships\n");
@@ -630,3 +630,4 @@ int main(){
   return 0;
 }
 
+*/
